@@ -153,7 +153,7 @@ myplot <- ggplot(data = visit_16, aes(x = state, y = visitors, fill = park_name)
 
 myplot
 
-ggsave(filename = "myplot.png", myplot)
+ggsave(filename = "myplot.jpg", myplot, height = 5, width = 5, units = "in")
 
 ```
 
