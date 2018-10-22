@@ -1,0 +1,99 @@
+---
+title: "Learning ggplot2"
+author: "Jamie Afflerbach"
+date: "10/22/2018"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load packages
+
+```{r packages}
+#install.packages("tidyverse")
+## tidyverse is a "packge of packages" and contains many of the packages we will use in the workshop, including ggplot2
+
+#load installed packages using `library()`
+library(tidyverse)
+```
+
+## Load NP data
+
+```{r load_data}
+#National Parks in California
+ca <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/ca.csv") 
+
+#Acadia National Park
+acadia <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/acadia.csv")
+
+#Southeast US National Parks
+se <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/se.csv")
+
+#2016 Visitation for all Pacific West National Parks
+visit_16 <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/visit_16.csv")
+
+#All Nationally designated sites in Massachusetts
+mass <- read_csv("https://raw.githubusercontent.com/OHI-Science/data-science-training/master/data/mass.csv")
+```
+
+Start with the Califoria (`ca`) dataset
+
+```{r}
+head(ca)
+View(ca)
+```
+
+Plot visitation to all CA National Parks over time
+
+```{r}
+ggplot(data = ca) +
+  geom_point(aes(x = year, y = visitors))
+```
+
+```{r}
+ggplot(data = ca) +
+  geom_point(aes(x = year, y = visitors, color = park_name))
+```
+
+```{r}
+ggplot(data = ca) +
+  geom_point(aes(x = year, y = visitors, color = park_name)) +
+  labs(x = "Year",
+       y = "Visitation",
+       title = "California National Park Visitation") +
+  theme_bw() +  #this utilized the a different theme (dark on light)
+  theme(legend.title = element_blank()) #this removed the legend title
+```
+Plot visitation to SE region National Parks
+
+```{r}
+ggplot(data = se) +
+  geom_point(aes(x = year, y = visitors, color = state)) +
+  theme_minimal() +
+  xlab("Year") +
+  ylab("Visitation") +
+  ggtitle("Visitation in SE Region National Parks") +
+  theme(legend.title = element_blank(),
+        axis.text.x = element_text(angle = 45, size = 14))
+```
+
+```{r}
+ggplot(data = se) +
+  geom_point(aes(x = year, y = visitors))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
