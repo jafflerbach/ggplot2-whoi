@@ -72,17 +72,95 @@ Plot visitation to SE region National Parks
 ggplot(data = se) +
   geom_point(aes(x = year, y = visitors, color = state)) +
   theme_minimal() +
-  xlab("Year") +
+  xlab("Year") + #another way to add an x-axis label instead of 'labs()'
   ylab("Visitation") +
   ggtitle("Visitation in SE Region National Parks") +
   theme(legend.title = element_blank(),
-        axis.text.x = element_text(angle = 45, size = 14))
+        axis.text.x = element_text(angle = 45, size = 14, hjust = 1, color = "red"))
 ```
 
 ```{r}
 ggplot(data = se) +
   geom_point(aes(x = year, y = visitors))
 ```
+
+# Faceting plots
+
+```{r}
+ggplot(data = se) +
+  geom_point(aes(x = year, y = visitors, color = park_name)) +
+  facet_wrap(~ state, scales = "free") +
+  theme(axis.text.x = element_text(angle = 90))
+```
+
+# geoms
+
+```{r}
+ggplot(data = se) +
+  geom_jitter(aes(x = park_name, y = visitors, color = park_name), alpha = 0.4, width = 0.1) +
+  coord_flip()
+```
+
+## `geom_line`
+
+```{r}
+ggplot(se) +
+  geom_line(aes(x = year, y = visitors, color = park_name)) +
+  theme_bw()
+```
+
+Multiple geoms on one plot
+
+```{r}
+ggplot(data = acadia) +
+  geom_point(aes(x = year, y = visitors)) +
+  geom_line(aes(x = year, y = visitors)) +
+  geom_smooth(aes(x = year, y = visitors))
+```
+
+
+```{r}
+ggplot(data = acadia, aes(x = year, y = visitors)) +
+  geom_point() +
+  geom_line() +
+  geom_smooth()
+```
+
+
+```{r}
+#install.packages("ggthemes")
+library(ggthemes)
+
+ggplot(data = acadia, aes(x = year, y = visitors)) +
+  geom_point() +
+  geom_line() +
+  geom_smooth() +
+  theme_gdocs()
+```
+
+# Bar Charts
+
+```{r}
+ggplot(data = visit_16, aes(x = state, y = visitors, fill = park_name)) +
+  geom_bar(stat = "identity", position = "dodge")
+```
+
+#Save a ggplot
+
+```{r}
+myplot <- ggplot(data = visit_16, aes(x = state, y = visitors, fill = park_name)) +
+  geom_bar(stat = "identity", position = "dodge")
+
+myplot
+
+ggsave(filename = "myplot.png", myplot)
+
+```
+
+
+
+
+
 
 
 
